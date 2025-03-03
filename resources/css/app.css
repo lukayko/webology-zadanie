@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
 @import 'tailwindcss';
 
 @plugin 'tailwindcss-animate';
@@ -8,8 +10,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -116,7 +117,9 @@
     --custom-purple-20: rgba(93, 33, 210, 0.15);
     --custom-gray-20: #f6f7fa;
     --custom-gray-30: #e2e3e9;
+    --custom-gray-40: #e6e8eb;
     --custom-gray-50: #8f93a3;
+    --custom-gray-60: #616a73;
 }
 
 @layer base {
