@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('filename');
             $table->string('path');
             $table->string('tag')->nullable();
+            $table->integer('size');
             $table->timestamps();
     
             // Foreign key constraint

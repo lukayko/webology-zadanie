@@ -14,6 +14,7 @@ class UploadedFile extends Model
         'filename',
         'path',
         'tag',
+        'size',
     ];
 
     public function user()

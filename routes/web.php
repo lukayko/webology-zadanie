@@ -15,6 +15,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::post('/upload-file', [FileUploadController::class, 'upload']);
+Route::get('/user-files', [FileUploadController::class, 'getUserFiles'])->middleware('auth');
+Route::delete('/delete-file/{id}', [FileUploadController::class, 'delete'])->middleware('auth');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

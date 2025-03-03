@@ -1,5 +1,6 @@
 import { formatTime } from '@/lib/utils';
 import { FileCardProps } from '@/types';
+import axios from 'axios';
 import DOC from '../../../public/images/doc.png';
 import INVOICE from '../../../public/images/invoice.png';
 import LETTER from '../../../public/images/letter.png';
@@ -24,6 +25,22 @@ const fileColors: { [key: string]: string } = {
 };
 
 function FileCard({ file }: FileCardProps) {
+    const handleDelete = async () => {
+        try {
+            const response = await axios.delete(`/delete-file/${file.id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    function handleEdit() {
+        console.log('Edit' + file.id);
+    }
+
     return (
         <div className="grid grid-cols-4 items-center justify-between border-b border-(--custom-gray-30) p-8">
             <div className="flex items-center gap-4">
@@ -36,8 +53,12 @@ function FileCard({ file }: FileCardProps) {
             </div>
             <p className="text-center text-lg text-(--custom-gray-50)">{formatTime(file.created_at)}</p>
             <div className="flex justify-end gap-4">
-                <Button variant={'secondary'}>Edit</Button>
-                <Button variant={'destructive'}>Delete</Button>
+                <Button variant={'secondary'} onClick={handleEdit}>
+                    Edit
+                </Button>
+                <Button variant={'destructive'} onClick={handleDelete}>
+                    Delete
+                </Button>
             </div>
         </div>
     );
