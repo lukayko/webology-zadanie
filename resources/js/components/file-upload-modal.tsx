@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { FileData } from '../types';
 import { Button } from './ui/button';
 
-function FileUploadModal() {
+function FileUploadModal({ onClose }: { onClose: () => void }) {
     const [fileData, setFileData] = useState<FileData>({
         filename: '',
         tag: 'pdf',
@@ -60,6 +60,8 @@ function FileUploadModal() {
                 tag: 'pdf',
                 file: null,
             });
+
+            onClose();
         } catch (error) {
             setMessage('File upload failed');
             console.error('File upload failed:', error);

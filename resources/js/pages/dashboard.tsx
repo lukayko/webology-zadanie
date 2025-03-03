@@ -1,4 +1,5 @@
-import FileUploadModal from '@/components/file-upload-modal';
+import FileModal from '@/components/file-upload-modal';
+import FilesContainer from '@/components/files-container';
 import ModalOverlay from '@/components/modal-overlay';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
@@ -43,6 +44,10 @@ export default function Dashboard() {
         setModalOpen(true);
     }
 
+    const handleCloseModal = () => {
+        setModalOpen(false);
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -69,17 +74,12 @@ export default function Dashboard() {
                 </div>
                 {modalOpen && (
                     <ModalOverlay>
-                        <FileUploadModal />
+                        <FileModal onClose={handleCloseModal} />
                     </ModalOverlay>
                 )}
                 <div>
                     <h2 className="mb-5 text-xl font-semibold text-(--custom-gray-60)">All Files</h2>
-                    <div className="rounded-xl border border-(--custom-gray-30) bg-white py-10">
-                        <p className="text-center">
-                            Ooops, It seems you have no uploaded documents.
-                            <br /> Click on the button above to upload your first document.
-                        </p>
-                    </div>
+                    <FilesContainer />
                 </div>
             </div>
         </AppLayout>
