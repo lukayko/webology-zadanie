@@ -1,7 +1,10 @@
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import FileUploadModal from '@/components/file-upload-modal';
+import ModalOverlay from '@/components/modal-overlay';
+import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, type TagItem } from '@/types';
 import { Head } from '@inertiajs/react';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -10,24 +13,73 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+const tags: TagItem[] = [
+    {
+        name: 'PDFs',
+        db_name: 'pdf',
+    },
+    {
+        name: 'Docs',
+        db_name: 'doc',
+    },
+    {
+        name: 'Invoices',
+        db_name: 'invoice',
+    },
+    {
+        name: 'Letters',
+        db_name: 'letter',
+    },
+    {
+        name: 'Others',
+        db_name: 'other',
+    },
+];
+
 export default function Dashboard() {
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+    function handleUploadButtonClick() {
+        setModalOpen(true);
+    }
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                    <div className="border-sidebar-border/70 dark:border-sidebar-border relative aspect-video overflow-hidden rounded-xl border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+            <div className="relative flex flex-col flex-1 background-">
+                <div className="flex items-center justify-between py-8">
+                    <h1 className="text-3xl font-semibold text-(--custom-gray-50)">Documents</h1>
+                    <div className="flex gap-4">
+                        <Button variant={'tag_default'} size={'tag_default'}>
+                            All Documents
+                        </Button>
+
+                        {tags.map((tag) => (
+                            <Button variant={'tag_default'} size={'tag_default'} key={tag.db_name}>
+                                {tag.name}
+                            </Button>
+                        ))}
                     </div>
                 </div>
-                <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
-                    <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+                <div className="mb-13 flex flex-col items-center gap-4 rounded-xl border border-dashed border-[#5d21d2] bg-(--custom-purple-20) py-10">
+                    <Button variant={'default'} size={'lg'} onClick={() => handleUploadButtonClick()}>
+                        Choose file
+                    </Button>
+                    <span className="text-(--custom-gray-50)">click on the button to upload a new file</span>
+                </div>
+                {modalOpen && (
+                    <ModalOverlay>
+                        <FileUploadModal />
+                    </ModalOverlay>
+                )}
+                <div>
+                    <h2 className="mb-5 text-xl font-semibold text-(--custom-gray-60)">All Files</h2>
+                    <div className="rounded-xl border border-(--custom-gray-30) bg-white py-10">
+                        <p className="text-center">
+                            Ooops, It seems you have no uploaded documents.
+                            <br /> Click on the button above to upload your first document.
+                        </p>
+                    </div>
                 </div>
             </div>
         </AppLayout>
