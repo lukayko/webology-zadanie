@@ -1,11 +1,14 @@
-import FileModal from '@/components/file-upload-modal';
-import FilesContainer from '@/components/files-container';
-import ModalOverlay from '@/components/modal-overlay';
+import DocumentContainer from '@/components/dashboard/document-container/document-container';
+import { DocumentFilter } from '@/components/dashboard/document-filter/document-filter';
+import DocumentActionsModalBody from '@/components/dashboard/modals/document-actions-modal-body';
+import ModalOverlay from '@/components/dashboard/modals/modal-overlay';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem, type TagItem } from '@/types';
+import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from 'resources/store/store';
+import { showModal } from '../../store/modalSlice';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -14,38 +17,12 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const tags: TagItem[] = [
-    {
-        name: 'PDFs',
-        db_name: 'pdf',
-    },
-    {
-        name: 'Docs',
-        db_name: 'doc',
-    },
-    {
-        name: 'Invoices',
-        db_name: 'invoice',
-    },
-    {
-        name: 'Letters',
-        db_name: 'letter',
-    },
-    {
-        name: 'Others',
-        db_name: 'other',
-    },
-];
+const Dashboard = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const modalData = useSelector((state: RootState) => state.modal);
 
-export default function Dashboard() {
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
-
-    function handleUploadButtonClick() {
-        setModalOpen(true);
-    }
-
-    const handleCloseModal = () => {
-        setModalOpen(false);
+    const handleUploadButtonClick = () => {
+        dispatch(showModal('create'));
     };
 
     return (
@@ -54,34 +31,22 @@ export default function Dashboard() {
             <div className="relative flex flex-col flex-1 background-">
                 <div className="flex items-center justify-between py-8">
                     <h1 className="text-3xl font-semibold text-(--custom-gray-50)">Documents</h1>
-                    <div className="flex gap-4">
-                        <Button variant={'tag_default'} size={'tag_default'}>
-                            All Documents
-                        </Button>
-
-                        {tags.map((tag) => (
-                            <Button variant={'tag_default'} size={'tag_default'} key={tag.db_name}>
-                                {tag.name}
-                            </Button>
-                        ))}
-                    </div>
+                    <DocumentFilter />
                 </div>
                 <div className="mb-13 flex flex-col items-center gap-4 rounded-xl border border-dashed border-[#5d21d2] bg-(--custom-purple-20) py-10">
-                    <Button variant={'default'} size={'lg'} onClick={() => handleUploadButtonClick()}>
+                    <Button variant={'default'} size={'lg'} onClick={handleUploadButtonClick}>
                         Choose file
                     </Button>
                     <span className="text-(--custom-gray-50)">click on the button to upload a new file</span>
                 </div>
-                {modalOpen && (
-                    <ModalOverlay>
-                        <FileModal onClose={handleCloseModal} />
-                    </ModalOverlay>
-                )}
                 <div>
                     <h2 className="mb-5 text-xl font-semibold text-(--custom-gray-60)">All Files</h2>
-                    <FilesContainer />
+                    <DocumentContainer />
                 </div>
             </div>
+            {modalData.modalVisible && <ModalOverlay>{<DocumentActionsModalBody type={modalData.modalType} />}</ModalOverlay>}
         </AppLayout>
     );
-}
+};
+
+export default Dashboard;

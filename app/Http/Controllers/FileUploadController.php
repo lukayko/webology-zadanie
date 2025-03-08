@@ -23,9 +23,6 @@ class FileUploadController extends Controller
             $fileTag = $request->input('tag');
             $fileSize = $file->getSize();
 
-            $extension = $file->getClientOriginalExtension();
-            $fileName = $fileName . "." . $extension;
-
             $filePath = $file->storeAs('uploads', $fileName, 'public'); 
 
             $uploadedFile = UploadedFile::create([
@@ -46,7 +43,14 @@ class FileUploadController extends Controller
     }
 
     public function getUserFiles(Request $request) {
-        $files = UploadedFile::where("user_id", Auth::id())->get();
+        $query = UploadedFile::where("user_id", Auth::id());
+        
+        if ($request->has('tag') && $request->input('tag')) {
+            $query->where('tag', $request->input('tag'));
+        }
+
+        $files = $query->get();
+
         return response()->json([
             'files' => $files,
         ], 200);
@@ -63,5 +67,26 @@ class FileUploadController extends Controller
         $file->delete();
 
         return response()->json(["message"=>"File deleted successfully!"], 200);
+    }
+
+    public function edit(Request $request, $id){
+        
+        $request->validate([
+            'filename' => 'required|string',
+            'tag' => 'nullable|string',
+        ]);
+        
+        $file = UploadedFile::find($id);
+
+        if (!$file){
+            return response()->json(["message" => "File not found!", 404]);
+        }
+
+        $file -> fileName = $request->input('filename');
+        $file -> tag = $request->input('tag');
+        
+        $file->save();
+
+        return response()->json(["message" => "File updated successfully!", 200]);
     }
 }

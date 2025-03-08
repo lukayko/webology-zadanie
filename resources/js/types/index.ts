@@ -8,10 +8,11 @@ export interface BreadcrumbItem {
     title: string;
     href: string;
 }
+export type TagType = 'all' | 'doc' | 'invoice' | 'other' | 'letter' | 'pdf';
 
 export interface TagItem {
     name: string;
-    db_name: string;
+    db_name: TagType;
 }
 
 export interface NavGroup {
@@ -44,23 +45,45 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
-export interface FileData {
+export interface DocumentData {
     filename: string;
     tag: string;
     file: File | null;
 }
 
-export interface FileCard {
-    created_at: string;
+export interface EditDocumentData {
+    filename: string;
+    tag: string;
+}
+
+export interface DocumentCardType {
+    created_at: string | undefined;
     filename: string;
     id: number;
     path: string;
     tag: string;
-    updated_at: string;
     user_id: number;
     size: number;
 }
 
-export interface FileCardProps {
-    file: FileCard;
+export interface DocumentType {
+    documents: DocumentCardType[];
+    message: string;
+    loading: boolean;
+    tag: string;
+    toastVisible: boolean;
+    docData: DocumentCardType | null;
+}
+
+export type DocumentCardEdit = Pick<DocumentCardType, 'filename' | 'tag'>;
+
+export interface DocumentContainerProps {
+    documents: DocumentCardType[];
+}
+
+export type modalType = 'create' | 'edit' | 'delete' | '';
+
+export interface modalState {
+    modalVisible: boolean;
+    modalType: modalType;
 }

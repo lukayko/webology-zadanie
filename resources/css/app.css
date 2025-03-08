@@ -120,6 +120,7 @@
     --custom-gray-40: #e6e8eb;
     --custom-gray-50: #8f93a3;
     --custom-gray-60: #616a73;
+    --custom-gray-80: #697b8a;
 }
 
 @layer base {
