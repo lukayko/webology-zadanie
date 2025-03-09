@@ -14,7 +14,7 @@ export const DocumentFilter = () => {
     };
 
     return (
-        <div className="flex gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
             {documentTags.map((tagItem) => {
                 return (
                     <Button

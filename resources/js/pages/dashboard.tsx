@@ -28,8 +28,8 @@ const Dashboard = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
-            <div className="relative flex flex-col flex-1 background-">
-                <div className="flex items-center justify-between py-8">
+            <div className="relative flex flex-1 flex-col px-5">
+                <div className="flex flex-col items-center justify-between gap-4 py-8 lg:flex-row">
                     <h1 className="text-3xl font-semibold text-(--custom-gray-50)">Documents</h1>
                     <DocumentFilter />
                 </div>

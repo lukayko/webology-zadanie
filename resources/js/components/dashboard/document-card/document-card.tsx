@@ -41,12 +41,12 @@ const DocumentCard = ({ documentData }: { documentData: DocumentCardType }) => {
     };
 
     return (
-        <div className="grid grid-cols-4 items-center justify-between border-b border-(--custom-gray-30) p-8">
+        <div className="grid grid-cols-3 items-center justify-between border-b border-(--custom-gray-30) p-4 md:grid-cols-4 lg:p-8">
             <div className="flex items-center gap-4">
-                <img src={fileIcons[documentData.tag]} className="max-w-10" />
+                <img src={fileIcons[documentData.tag]} className="hidden max-w-10 sm:block" />
                 <h4 className="text-lg font-medium text-(--custom-gray-60)">{documentData.filename}</h4>
             </div>
-            <div className="grid items-center grid-cols-4 justify-items-center">
+            <div className="flex flex-col items-center justify-items-center lg:grid lg:grid-cols-4">
                 <p
                     className={`col-start-2 justify-self-start rounded-4xl bg-amber-400 px-[13px] py-[6px] text-xs font-medium text-white ${fileColors[documentData.tag]}`}
                 >
@@ -54,8 +54,8 @@ const DocumentCard = ({ documentData }: { documentData: DocumentCardType }) => {
                 </p>
                 <p className="col-start-3 text-lg font-medium text-(--custom-gray-50)">{formatSize(documentData.size)}</p>
             </div>
-            <p className="text-center text-lg text-(--custom-gray-50)">{formatTime(documentData.created_at)}</p>
-            <div className="flex justify-end gap-4">
+            <p className="hidden text-center text-lg text-(--custom-gray-50) md:block">{formatTime(documentData.created_at)}</p>
+            <div className="flex flex-col justify-end gap-4 lg:flex-row">
                 <Button variant={'secondary'} onClick={handleEditClick}>
                     Edit
                 </Button>

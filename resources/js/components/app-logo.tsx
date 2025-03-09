@@ -1,14 +1,9 @@
-import AppLogoIcon from './app-logo-icon';
+import logo from '../../../public/images/logo-small.png';
 
 export default function AppLogo() {
     return (
         <>
-            <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-md">
-                <AppLogoIcon className="size-5 fill-current text-white dark:text-black" />
-            </div>
-            <div className="ml-1 grid flex-1 text-left text-sm">
-                <span className="mb-0.5 truncate leading-none font-semibold">Document manager</span>
-            </div>
+            <img className="w-32" src={logo} alt={'FileVault'} />
         </>
     );
 }
