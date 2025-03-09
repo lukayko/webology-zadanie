@@ -58,7 +58,7 @@ const EditModalForm = () => {
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <label htmlFor="filename">Name</label>
                 <input
-                    className="px-1 py-2 border rounded-md"
+                    className="rounded-md border px-1 py-2"
                     type="text"
                     id="filename"
                     name="filename"
@@ -66,14 +66,14 @@ const EditModalForm = () => {
                     onChange={handleInputChange}
                 />
                 <label htmlFor="tag">Tag</label>
-                <select className="px-1 py-2 border rounded-md" id="tag" name="tag" value={fileData.tag} onChange={handleInputChange}>
+                <select className="rounded-md border px-1 py-2" id="tag" name="tag" value={fileData.tag} onChange={handleInputChange}>
                     <option value="pdf">PDF</option>
                     <option value="doc">Doc</option>
                     <option value="invoice">Invoice</option>
                     <option value="letter">Letter</option>
                     <option value="other">Other</option>
                 </select>
-                <div className="flex gap-4 mt-4">
+                <div className="mt-4 flex flex-col gap-4 lg:flex-row">
                     <Button variant={'secondary'} onClick={handleCancelClick} className="flex-1" type={'reset'}>
                         Cancel
                     </Button>

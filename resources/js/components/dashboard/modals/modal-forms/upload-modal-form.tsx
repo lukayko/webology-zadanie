@@ -85,7 +85,7 @@ const UploadModalForm = () => {
                 </select>
                 <label htmlFor="file">File</label>
                 <input className="rounded-md border px-1 py-2" type="file" id="file" name="file" onChange={handleFileChange} />
-                <div className="mt-4 flex gap-4">
+                <div className="mt-4 flex flex-col gap-4 lg:flex-row">
                     <Button variant={'secondary'} onClick={handleCancelClick} className="flex-1" type={'reset'}>
                         Cancel
                     </Button>

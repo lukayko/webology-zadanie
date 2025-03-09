@@ -25,7 +25,7 @@ const DeleteModalForm = () => {
         <>
             <h3 className="text-xl font-semibold text-(--custom-gray-60)">Delete file</h3>
             <p>Are you sure you want to delete this file?</p>
-            <div className="flex justify-end gap-4">
+            <div className="flex flex-col gap-4 lg:flex-row">
                 <Button variant={'secondary'} size={'default'} onClick={onCloseClick} className="flex-1">
                     Cancel
                 </Button>
