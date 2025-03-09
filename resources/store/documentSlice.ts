@@ -53,7 +53,7 @@ const initialState: DocumentType = {
     documents: [],
     message: '',
     loading: false,
-    tag: 'all',
+    tag: sessionStorage.getItem('selectedTag') || 'all',
     toastVisible: false,
     docData: null,
 };
@@ -64,6 +64,7 @@ const documentSlice = createSlice({
     reducers: {
         setTag: (state, action: PayloadAction<string>) => {
             state.tag = action.payload;
+            sessionStorage.setItem('selectedTag', action.payload);
         },
 
         hideToast: (state) => {
