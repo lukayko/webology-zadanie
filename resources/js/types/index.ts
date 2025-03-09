@@ -57,7 +57,7 @@ export interface EditDocumentData {
 }
 
 export interface DocumentCardType {
-    created_at: string | undefined;
+    created_at: string;
     filename: string;
     id: number;
     path: string;
