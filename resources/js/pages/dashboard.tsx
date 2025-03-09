@@ -4,6 +4,7 @@ import DocumentActionsModalBody from '@/components/dashboard/modals/document-act
 import ModalOverlay from '@/components/dashboard/modals/modal-overlay';
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
+import { formatContainerHeading } from '@/lib/utils';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +21,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const Dashboard = () => {
     const dispatch = useDispatch<AppDispatch>();
     const modalData = useSelector((state: RootState) => state.modal);
+    const { tag } = useSelector((state: RootState) => state.document);
 
     const handleUploadButtonClick = () => {
         dispatch(showModal('create'));
@@ -40,7 +42,7 @@ const Dashboard = () => {
                     <span className="text-(--custom-gray-50)">click on the button to upload a new file</span>
                 </div>
                 <div>
-                    <h2 className="mb-5 text-xl font-semibold text-(--custom-gray-60)">All Files</h2>
+                    <h2 className="mb-5 text-xl font-semibold text-(--custom-gray-60)">{formatContainerHeading(tag)}</h2>
                     <DocumentContainer />
                 </div>
             </div>

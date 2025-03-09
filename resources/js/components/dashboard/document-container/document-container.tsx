@@ -17,12 +17,13 @@ const DocumentContainer = () => {
         return <DocumentCard key={document.id} documentData={document} />;
     });
 
-    const formatted_msg = <p className="text-(--custom-gray-50)">{message}</p>;
+    const formattedMsg = <p className="text-(--custom-gray-50)">{message}</p>;
+    const noFilesMsg = <p className="text-(--custom-gray-50)">No files uploaded</p>;
 
     return (
         <div className={`flex flex-col rounded-xl border border-(--custom-gray-30) bg-white ${documents.length === 0 ? 'p-8' : ''}`}>
-            {loading && formatted_msg}
-            {documents.length === 0 && formatted_msg}
+            {loading && formattedMsg}
+            {!loading && documents.length === 0 && noFilesMsg}
             {!loading && documents.length !== 0 && docList}
         </div>
     );

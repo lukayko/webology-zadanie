@@ -22,3 +22,11 @@ export const formatSize = (bytes: number, decimals = 0) => {
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals)) + ' ' + sizes[i];
 };
+
+export const formatContainerHeading = (tag = 'all') => {
+    if (tag === 'all') {
+        return `All files`;
+    }
+
+    return `All ${tag.toLowerCase()} files`;
+};
